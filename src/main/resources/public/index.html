@@ -1,0 +1,96 @@
+<!doctype html>
+<html ng-app="DashboardWM">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>webMethods admin </title>
+
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.js"></script>
+	<script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.min.js"></script>
+	<script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+
+
+	<!-- Script relatifs a l application-->
+	<script src="js/app/app.js"></script>
+	<script src="js/app/main/main.controller.js"></script>
+	<script src="js/app/main/main.js"></script>
+
+	<script src="js/app/pages/pages.js"></script>
+
+	<script src="js/app/pages/bootstrap-elements/bootstrap-elements.controller.js"></script>	
+	<script src="js/app/pages/bootstrap-elements/bootstrap-elements.js"></script>
+
+
+	<script src="js/app/pages/charts/charts.controller.js"></script>	
+	<script src="js/app/pages/charts/charts.js"></script>
+
+	<script src="js/app/pages/forms/forms.controller.js"></script>	
+	<script src="js/app/pages/forms/forms.js"></script>
+
+	<script src="js/app/pages/muscu/muscu.controller.js"></script>	
+	<script src="js/app/pages/muscu/muscu.js"></script>
+
+	<script src="js/app/pages/tables/tables.controller.js"></script>	
+	<script src="js/app/pages/tables/tables.js"></script>
+
+	<script src="js/app/pages/pipelines/pipelines.controller.js"></script>	
+	<script src="js/app/pages/pipelines/pipelines.js"></script>
+
+	<script src="js/app/pages/bootstrap-grid/bootstrap-grid.controller.js"></script>	
+	<script src="js/app/pages/bootstrap-grid/bootstrap-grid.js"></script>
+
+	<script src="js/app/pages/blank-page/blank-page.controller.js"></script>	
+	<script src="js/app/pages/blank-page/blank-page.js"></script>
+
+
+	<!-- Morris Charts JavaScript 
+    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+-->
+    <!-- Flot Charts JavaScript 
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+-->
+</head>
+<body>
+
+    <div id="wrapper">
+	   <div id="page-wrapper">
+			<div class="container-fluid">
+				<div id="entete" ui-view="navbar" ng-cloak=""></div>
+				<div ui-view="content"></div>
+				<div id="pied"></div>
+			</div> <!-- container-fluid -->
+		</div><!-- page wrapper -->
+    </div><!-- wrapper -->
+
+</body>
+
+</html>

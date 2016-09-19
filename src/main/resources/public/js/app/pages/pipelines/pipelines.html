@@ -1,0 +1,73 @@
+	
+          <div class="row navbar navbar-default">
+                    <div class="">
+                        <div class=" navbar-collapse collapse">
+                            <ul class="col-lg-12 nav navbar-nav">
+                                <li class="col-lg-3 active"><a href="#">local</a>
+                                </li>
+                                <li class="col-lg-3"><a href="#dev">Developpement</a>
+                                </li>
+                                <li class="col-lg-3"><a href="#rec">Recette</a>
+                                </li>
+                                <li class="col-lg-3"><a href="#PRD">Production</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--/.nav-collapse -->
+                    </div>
+                </div>
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Pipelines
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-table"></i> Pipelines
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">                    
+                    <div class="col-lg-6">
+						<h2>Restore</h2>
+				        <div class="gridStyle" ui-grid="gridRestore"></div>
+                    </div>
+                    <div class="col-lg-6">
+						<h2>Save</h2>
+				        <div class="gridStyle" ui-grid="gridSave"></div>
+					</div>
+                </div>
+                <!-- /.row -->
+
+			<div class="row" >
+				<div class="col-lg-6">
+				<h2>List package</h2>
+				<div class="gridStyle" ui-grid="gridPackages"/>
+				</div>
+			
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<button ng-click="removeXslt()" >XSLT</button>
+					<button ng-click="getPackages()" >Packages</button>				
+				</div>
+			</div>
+
+
+        <!--  Bind the pagination component to be displayed. 
+        <pagination direction-links="true" boundary-links="true"
+                    total-items="persons.totalResults" page="persons.currentPage" items-per-page="persons.pageSize"
+                    on-select-page="refreshGrid(page)">
+        </pagination>-->
+
+    </div>
+              

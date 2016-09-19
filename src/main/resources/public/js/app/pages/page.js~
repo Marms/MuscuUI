@@ -1,0 +1,10 @@
+'use strict';
+
+angular.module('DashboardWM')
+    .config(function ($stateProvider) {
+        $stateProvider
+            .state('page', {
+                abstract: true,
+                parent: 'site'
+            });
+    });
