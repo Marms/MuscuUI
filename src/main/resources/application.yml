@@ -1,0 +1,7 @@
+server:
+  port: 8091
+zuul:
+  routes:
+    resource:
+      path: /v1/**
+      url: http://localhost:9000/v1/
