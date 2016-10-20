@@ -1,0 +1,129 @@
+
+<!-- Page Heading -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">
+			Seance <small>Subheading</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+			</li>
+			<li class="active"><i class="fa fa-file"></i>Seance</li>
+		</ol>
+	</div>
+</div>
+<!-- /.row -->
+<div id="listeSeance" ng-if="!showCreateSeance">
+	<h2>Liste des seances</h2>
+	<div class="row">
+		<div class="col-lg-12">
+			<!--  END row -->
+			<button type="button" class="btn btn-info btn-lg"
+				ng-click="viewCreateSeance()">Creer une seance</button>
+				<div ng-if="gridSeances.data.length > 0" >
+					<div class="gridStyle" ui-grid="gridSeances"></div>
+				</div>
+		</div>
+	</div>
+</div>
+
+<div id="createSeance" ng-if="showCreateSeance">
+	<h2>Nouvelle seance</h2>
+	<div id="selectionnerSeancePredef" ng-if="selectionnerExo">
+		<!-- Liste des seanceTemplates -->
+		<h3>Selectionner le template de seance</h3>
+		<div class="row">
+			<div ng-repeat="seance in seanceTemplates" class="col-lg-3" ng-click="choixSeance(seance)">
+				<div id="seance-{{seance.id}}" class="panel panel-primary">
+					<div class="panel-heading"> <h3 class="panel-title">{{seance.id}}</h3></div>
+					<div class="panel-body" > {{seance.name}}</div>			
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<button type="button" ng-click="viewCreateSeance()" class="btn btn-cancel">Annuler</button>
+			</div>
+		</div>
+		<!-- Fin Liste des seanceTemplates -->
+	</div>
+	<div id="listeExoTemplate" ng-if="showListeExoTemplate">
+		<h3>Exercices de la seance:</h3>
+		<!-- Liste des exercice template de la seance -->
+		<div class="row">
+			<div ng-repeat="exerciceTemplate in seance.seancePredef.list" class="col-lg-3" ng-click="choixExo(exerciceTemplate)">
+				<div id="exerciceTemplate-{{exerciceTemplate}}" class="panel panel-primary {{exerciceTemplate.done}}">
+					<div class="panel-heading"><h3 class="panel-title">{{exerciceTemplate.name}}</h3></div>
+					<div class="panel-body"></div>
+				</div>
+			</div>
+			<div ng-repeat="exerciceTemplate in otherExo" class="col-lg-3" ng-click="choixExo(exerciceTemplate)">
+				<div id="exerciceTemplate-{{exerciceTemplate}}" class="panel panel-primary {{exerciceTemplate.done}}">
+					<div class="panel-heading"><h3 class="panel-title">{{exerciceTemplate.name}}</h3></div>
+					<div class="panel-body"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<button type="button" class="btn btn-primary" ng-click="saveSeance()">Save seance</button>
+			<button type="button" class="btn btn-cancel" ng-click="cancelSeance()">selectionner une autre seance</button>
+			<button type="button" class="btn btn-succes" ng-click="addOtherExo()">Ajouter une exercice</button>
+ 		</div>
+		<!-- End Liste des exercice template de la seance -->
+	</div>
+
+	<div id="exo" ng-if="showListeSerieExo">
+		<h3>{{actualExo.exoPredef.name}}</h3>
+		<div id="addSerie">
+			<form role="form" ng-submit="addSerie()">
+			<div class="row">
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>numero</label>
+					<input type="text" readonly class="form-control"/>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>repetition</label>
+					<input type="number" class="form-control" ng-model="serie.nbRepeat" />
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>poids</label>
+					<input type="number" class="form-control" ng-model="serie.poids">
+				</div>
+			</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">OK</button>
+					</div>
+				</div>
+			</div>
+			</form>
+		</div>
+			
+		<div id="listSeries" ng-if="gridSeries.data.length > 0">
+		    <div class="gridStyle" ui-grid="gridSeries"></div>
+			<button type="button" class="btn btn-info btn-lg" ng-click="saveExo()">Save exo</button>
+		</div>
+	</div>
+	
+	<div id="exoPredef" ng-if="showAddOtherExo">
+		<h3>Ajouter un exo non present dans le template de seance</h3>
+		<div class="row">
+			<div class="col-lg-3" ng-repeat="exerciceTemplate in exoPredefs" ng-click="choixOtherExo(exerciceTemplate)">
+				<div id="exerciceTemplate-{{exerciceTemplate.id}}" class="panel panel-primary {{exerciceTemplate.done}}">
+					<div class="panel-heading"><h3 class="panel-title">{{exerciceTemplate.name}}</h3></div>
+					<div class="panel-body"></div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+

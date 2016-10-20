@@ -38,8 +38,41 @@ angular.module('DashboardWM').controller('SeanceTemplateController', function($s
 	
 	$scope.showList = function() {
 		$scope.seanceTemplate = {};
-		$scope.seanceTemplate.list = JSON.parse(JSON.stringify($scope.exoPredefs)); //mauvaise perf mais slice not work ??
 		$scope.showSeanceList = !$scope.showSeanceList;
+		$scope.showCreationForm = !$scope.showCreationForm;
+		$scope.seanceTemplate.list = JSON.parse(JSON.stringify($scope.exoPredefs)); //mauvaise perf mais slice not work ??
+	}
+	
+	$scope.showUpdateSeance = false;
+	$scope.updateSeance = function() {
+		$scope.showUpdateSeance = !$scope.showUpdateSeance;
+		$scope.showSeanceList = !$scope.showSeanceList; // le bouton n'est visible que lorque nous somme sur la vue showSeanceList
+	}
+	$scope.selectionSeance = function(seance) {
+		// cas ou on selectionne une deuxieme fois la seance 
+		var listChecked  = seance.list.filter(function(data) {
+			return data.isChecked;
+		});
+		if (listChecked.length > 0) {
+			console.log(listChecked.length + ' list Checked size');
+			seance.list = listChecked;
+		}
+		$scope.seanceTemplate = seance;
+		var exoPredefToSelect = seance.list;
+		console.log(exoPredefToSelect.length);
+		$scope.seanceTemplate.list = JSON.parse(JSON.stringify($scope.exoPredefs)); //mauvaise perf mais slice not work ?? 
+		// pour chaque exercice contenu dans la list mettre donne dans exoPredefs
+		for (var pas = 0; pas < exoPredefToSelect.length; pas++) {
+			var temp = $scope.seanceTemplate.list.filter(function(data) {
+				return data.id == exoPredefToSelect[pas].id;
+			})[0];
+			console.log('pas ' + pas + 'temp ' + temp.name);
+			temp.isChecked = false;
+			$scope.selectionner(temp);
+		};
+		// remplacer la liste de seanceTemplate par la liste d'exoPredefs
+		// $scope.seanceTemplate.list = $scope.exoPredefs;
+		$scope.showUpdateSeance = !$scope.showUpdateSeance;
 		$scope.showCreationForm = !$scope.showCreationForm;
 	}
 	$scope.getList();
@@ -47,7 +80,14 @@ angular.module('DashboardWM').controller('SeanceTemplateController', function($s
 	$scope.showSeanceList = true;
 	$scope.gridSeanceTemplates = {
 	   	   data: 'seanceTemplates'
-    };
+	//   	   enableRowSelection: true
+	};
+	
+	$scope.gridSeanceTemplates.columnDefs = [
+		{ name: 'id', width: 50},
+		{ name: 'name'}
+	];
+		
 
 	
 });

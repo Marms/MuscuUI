@@ -3,21 +3,21 @@
 angular.module('DashboardWM')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('charts', {
+            .state('seance', {
                 parent: 'pages',
-                url: '/charts',
+                url: '/seance',
                 data: {
                     roles: []
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'js/app/pages/charts/charts.html',
-                        controller: 'ChartsController'
+                        templateUrl: 'js/app/pages/seance/seance.html',
+                        controller: 'SeanceController'
                     }
                 },
                  resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-                        $translatePartialLoader.addPart('bootstrap-elements');
+                        $translatePartialLoader.addPart('seance');
                         return $translate.refresh();
                     }]
                 } 

@@ -5,6 +5,9 @@
  */
 
 /* Global Styles */
+.ui-grid-row-selected {
+  background-color: #c9dde1;
+}
 
 body {
     margin-top: 100px;

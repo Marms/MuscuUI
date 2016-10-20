@@ -1,4 +1,0 @@
-<div id="entete"></div>
-<div ui-view="navbar" ng-cloak=""></div>
-<div class="container" ui-view></div>
-<div id="pied"></div>
