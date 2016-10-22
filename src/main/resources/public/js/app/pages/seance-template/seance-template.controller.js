@@ -1,6 +1,16 @@
 'use strict';
 
 angular.module('DashboardWM').controller('SeanceTemplateController', function($scope, seancePredefService, exoPredefService) {
+	var listView = $scope.listView = [
+      "SEANCE_LIST",
+      "CREATION_SEANCE",
+      "UPDATE_SEANCE"
+  	];
+
+	$scope.changeView = function(index) {
+		$scope.actualView = listView[index];
+	}
+	$scope.changeView(0);
 
 	$scope.seanceTemplate= {};
 	$scope.getExo = function() {
@@ -20,10 +30,10 @@ angular.module('DashboardWM').controller('SeanceTemplateController', function($s
 			return exo.isChecked;
 		});
 		
- 		seancePredefService.save($scope.seanceTemplate).success(function(data) {
+		seancePredefService.save($scope.seanceTemplate).success(function(data) {
 			$scope.getList();
-			$scope.showList();
 		});
+		$scope.shangeView(0);
 	};
 
 	$scope.selectionner = function(exo) {
@@ -36,18 +46,12 @@ angular.module('DashboardWM').controller('SeanceTemplateController', function($s
 		console.log('selectionne '+ ' id ' + exo.id + ' ' + exo.isChecked)
 	}
 	
-	$scope.showList = function() {
+	$scope.showCreationSeance = function() {
 		$scope.seanceTemplate = {};
-		$scope.showSeanceList = !$scope.showSeanceList;
-		$scope.showCreationForm = !$scope.showCreationForm;
+		$scope.changeView(1);
 		$scope.seanceTemplate.list = JSON.parse(JSON.stringify($scope.exoPredefs)); //mauvaise perf mais slice not work ??
 	}
-	
-	$scope.showUpdateSeance = false;
-	$scope.updateSeance = function() {
-		$scope.showUpdateSeance = !$scope.showUpdateSeance;
-		$scope.showSeanceList = !$scope.showSeanceList; // le bouton n'est visible que lorque nous somme sur la vue showSeanceList
-	}
+
 	$scope.selectionSeance = function(seance) {
 		// cas ou on selectionne une deuxieme fois la seance 
 		var listChecked  = seance.list.filter(function(data) {
@@ -59,7 +63,6 @@ angular.module('DashboardWM').controller('SeanceTemplateController', function($s
 		}
 		$scope.seanceTemplate = seance;
 		var exoPredefToSelect = seance.list;
-		console.log(exoPredefToSelect.length);
 		$scope.seanceTemplate.list = JSON.parse(JSON.stringify($scope.exoPredefs)); //mauvaise perf mais slice not work ?? 
 		// pour chaque exercice contenu dans la list mettre donne dans exoPredefs
 		for (var pas = 0; pas < exoPredefToSelect.length; pas++) {
@@ -70,26 +73,20 @@ angular.module('DashboardWM').controller('SeanceTemplateController', function($s
 			temp.isChecked = false;
 			$scope.selectionner(temp);
 		};
-		// remplacer la liste de seanceTemplate par la liste d'exoPredefs
-		// $scope.seanceTemplate.list = $scope.exoPredefs;
-		$scope.showUpdateSeance = !$scope.showUpdateSeance;
-		$scope.showCreationForm = !$scope.showCreationForm;
+		$scope.changeView(1);
 	}
 	$scope.getList();
 	$scope.getExo();
-	$scope.showSeanceList = true;
+
 	$scope.gridSeanceTemplates = {
 	   	   data: 'seanceTemplates'
 	//   	   enableRowSelection: true
 	};
-	
+
 	$scope.gridSeanceTemplates.columnDefs = [
 		{ name: 'id', width: 50},
 		{ name: 'name'}
 	];
-		
-
-	
 });
 
 angular.module('DashboardWM').service('seancePredefService', function($http) {
