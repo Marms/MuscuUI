@@ -2,9 +2,20 @@
 
 angular.module('DashboardWM')
     .controller('SeanceController', function ($scope, seanceService, seancePredefService, exoPredefService) {
-        $scope.viewCreateSeance = function() {
-        	$scope.showCreateSeance = !$scope.showCreateSeance;
-        };
+    	var listView = $scope.listView  = [
+    	    "LISTE_SEANCE",
+    		"LISTE_SEANCE_PREDEF",
+    		"LISTE_EXO_TEMPLATE",
+    		"SELECTIONNER_EXO",
+    		"LISTE_SERIE",
+    		"ADD_OTHER_EXO"
+    	];
+
+    	$scope.changeView = function(index) {
+    		$scope.actualView = listView[index];
+    	}
+
+    	$scope.changeView(0);
 
         $scope.getExoTemplate = function() {
         	exoPredefService.getList().success(function(data) {
@@ -13,18 +24,6 @@ angular.module('DashboardWM')
         }
         $scope.getExoTemplate();
         
-        $scope.addOtherExo = function() {
-        	$scope.showListeExoTemplate = ! $scope.showListeExoTemplate;
-        	$scope.showAddOtherExo = true;
-        }
-        $scope.showAddOtherExo = false;
-        
-        $scope.cancelSeance = function() {
-            $scope.otherExo = [];
-        	$scope.showCreateSeance = true;
-        	$scope.showListeExoTemplate = false;
-        	$scope.selectionnerExo = true;
-        }
         $scope.getSeanceTemplates = function() {
         	seancePredefService.getList().success(function(data) {
         		$scope.seanceTemplates = data;
@@ -45,25 +44,26 @@ angular.module('DashboardWM')
         	seanceService.save($scope.seance).success( function(data) {
         		$scope.seance = data;
         		$scope.seances.push($scope.seance);
-        		$scope.viewCreateSeance();
+        		$scope.changeView(0);
                 $scope.otherExo = [];
         	});
         }
+
+        //TODO voir pour garder seance
         $scope.choixSeance = function(seance) {
         	$scope.seance = {};
         	$scope.seance.exercices = []; //init liste vide
         	$scope.seance.seancePredef = seance;
-        	$scope.selectionnerExo = false;
-        	$scope.showAddOtherExo = false;
-        	$scope.showListeExoTemplate = true;
+        	$scope.changeView(2);
         }
         
         $scope.otherExo = [];
         $scope.choixOtherExo = function(exo) {
-        	$scope.showAddOtherExo = false;
+        	$scope.changeView(2);
         	$scope.otherExo.push(exo);
         	$scope.choixExo(exo);
         }
+        
         $scope.choixExo = function(exo) {
         	$scope.numero = 0;
         	if (exo.done === "panel-red") {
@@ -84,8 +84,8 @@ angular.module('DashboardWM')
         		$scope.actualExo.exoPredef = exo; //set exotemplate
         	}
         	exo.done = "panel-red";
-        	$scope.showListeExoTemplate = false;
-        	$scope.showListeSerieExo = true;
+
+        	$scope.changeView(4);
         	$scope.gridSeries = {
             		data: 'actualExo.series'
             }
@@ -93,11 +93,9 @@ angular.module('DashboardWM')
         
         // ajout de l'exercice a la seance en cour puis affichage liste exo
         $scope.saveExo = function() {
-
         	// determiner si maj exo ou new exo
         	$scope.seance.exercices.push($scope.actualExo);
-        	$scope.showListeExoTemplate = true;
-        	$scope.showListeSerieExo = false;
+        	$scope.changeView(2);
         };
  
         // ajout de la serie a la liste de series de l'exercice actuel
@@ -109,14 +107,11 @@ angular.module('DashboardWM')
         	$scope.serie = {};
         	$scope.serie.nbRepeat=10;
         };
-        
-        
-        $scope.selectionnerExo = true;
+   
         $scope.getSeanceTemplates();
         
     });
 
-	
 
 angular.module('DashboardWM').service('seanceService', function($http) {
 	// Makes the REST request to get the data to populate the grid.
