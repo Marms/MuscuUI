@@ -10,13 +10,16 @@ angular.module('DashboardWM')
     		"LISTE_SERIE",
     		"ADD_OTHER_EXO"
     	];
-
+    	var EXO_DONE = "panel-red";
+   
     	$scope.changeView = function(index) {
+    		console.log("view " + listView[index]);
     		$scope.actualView = listView[index];
     	}
 
     	$scope.changeView(0);
 
+    	// RECUPERATION DES DONNEES
         $scope.getExoTemplate = function() {
         	exoPredefService.getList().success(function(data) {
         		$scope.exoPredefs = data;        		
@@ -29,6 +32,7 @@ angular.module('DashboardWM')
         		$scope.seanceTemplates = data;
         	});
         }
+        $scope.getSeanceTemplates();
         
         $scope.getSeances = function() {
         	seanceService.getList().success(function(data) {
@@ -36,10 +40,16 @@ angular.module('DashboardWM')
         	});
         }
         $scope.getSeances();
-        $scope.gridSeances = {
-        		data: 'seances'
-        };
-        
+ 
+        // FUNCTION DE L APPLICATION
+        $scope.choixSeance = function(seanceTemplate) {
+        	$scope.seance = {};
+        	$scope.seance.seancePredef = seanceTemplate;
+        	$scope.seance.exercices = []; //init liste vide
+        	$scope.affichageExo($scope.seance);
+        	$scope.changeView(2);
+        }
+
         $scope.saveSeance = function() {
         	seanceService.save($scope.seance).success( function(data) {
         		$scope.seance = data;
@@ -48,67 +58,95 @@ angular.module('DashboardWM')
                 $scope.otherExo = [];
         	});
         }
+        $scope.updateSeance = function(s) {
+        	$scope.seance = s;
+        	$scope.seancePredef = s.seancePredef;
+        	$scope.affichageExo(s);
+        	$scope.changeView(2);
+        	console.log(s);
+        }
 
-        //TODO voir pour garder seance
-        $scope.choixSeance = function(seance) {
-        	$scope.seance = {};
-        	$scope.seance.exercices = []; //init liste vide
-        	$scope.seance.seancePredef = seance;
-        	$scope.changeView(2);
-        }
-        
-        $scope.otherExo = [];
         $scope.choixOtherExo = function(exo) {
-        	$scope.changeView(2);
-        	$scope.otherExo.push(exo);
-        	$scope.choixExo(exo);
+        	$scope.choixExo(exo); // creation d un nouvau exo
+        	$scope.affichageExo($scope.seance);
+        	$scope.changeView(2);        	
+        }
+
+        //ajoute les exercice de la seance a la liste affichageExo:
+        $scope.affichageExo = function(s) {
+        	$scope.exos = s.seancePredef.list;
+        	// ajout des exercices supplementaires + modification css
+        	
+        	console.log("in exo " + $scope.exos);
+        	
+        	for (var indexExo =0; indexExo < s.exercices.length; indexExo++) {
+        		var ajouter = true;
+        		for (var i = 0; i < $scope.exos.length; i++) {
+        			console.log($scope.exos[i].name + " i.name");
+        			if ($scope.exos[i].name === s.exercices[indexExo].exoPredef.name) {
+        				ajouter = false;
+        				// changement de la couleur du panel:
+        				$scope.exos[i].done = EXO_DONE;
+        				// TODO ajouter les series au panel
+        			}
+        		}
+        		if (ajouter) {
+        			$scope.exos.push(s.exercices[indexExo].exoPredef);
+        			//s.exercices[indexExo].done = EXO_DONE;
+        		}
+        	}
         }
         
+        /* modifie actualExo
+         * - si exo non present dans les exercices de la seance en cours initialisation nouveau exo
+         * - sinon recuperation de l object correspondant
+         * */
         $scope.choixExo = function(exo) {
         	$scope.numero = 0;
-        	if (exo.done === "panel-red") {
+        	if (exo.done === EXO_DONE) {
+        		console.log("choix exo: maj exercice");
         		$scope.actualExo = $scope.seance.exercices.filter(function(data) {
         			return data.exoPredef.id == exo.id;
         		})[0];
-        		for(var serie in $scope.actualExo.series) { //TODO doesnt work 
-        			if ($scope.numero < serie.numero) {
-        				$scope.numero = serie.numero;
-        			}
-        		}
+        		$scope.actualExo.done = EXO_DONE;
         		// Todo recuperation du numero de serie
+								//        		for(var serie in $scope.actualExo.series) { //TODO doesnt work 
+								//        			if ($scope.numero < serie.numero) {
+								//        				$scope.numero = serie.numero;
+								//        			}
+								//        		}
         	} else {
+        		console.log("choix exo: creation d un exercice");
         		$scope.actualExo = {};        		
         		$scope.actualExo.series = [];
-        		$scope.serie = {};
-        		$scope.serie.nbRepeat = 10;
         		$scope.actualExo.exoPredef = exo; //set exotemplate
+        		$scope.seance.exercices.push($scope.actualExo);
         	}
-        	exo.done = "panel-red";
-
+        	$scope.initSerie();
+        	exo.done = EXO_DONE;
         	$scope.changeView(4);
         	$scope.gridSeries = {
             		data: 'actualExo.series'
             }
         };
         
-        // ajout de l'exercice a la seance en cour puis affichage liste exo
-        $scope.saveExo = function() {
-        	// determiner si maj exo ou new exo
-        	$scope.seance.exercices.push($scope.actualExo);
-        	$scope.changeView(2);
-        };
  
+        $scope.initSerie = function() {
+        	console.log("initSerie");
+        	$scope.serie = {};
+        	$scope.serie.nbRepeat = 10;
+        }
+
         // ajout de la serie a la liste de series de l'exercice actuel
-        $scope.addSerie = function(serie) {
+        $scope.addSerie = function() {
+        	console.log("addSerie " + $scope.serie);
         	$scope.serie.numero = $scope.numero;
         	$scope.numero++;
         	$scope.actualExo.series.push($scope.serie);
         	// mise a zero du formulaire
-        	$scope.serie = {};
-        	$scope.serie.nbRepeat=10;
+        	$scope.initSerie();
         };
-   
-        $scope.getSeanceTemplates();
+
         
     });
 
