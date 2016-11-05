@@ -72,7 +72,7 @@
 		<div ng-repeat="exerciceTemplate in exos" class="col-lg-3" ng-click="choixExo(exerciceTemplate)">
 			<div id="exerciceTemplate-{{exerciceTemplate}}" class="panel panel-primary {{exerciceTemplate.done}}">
 				<div class="panel-heading"><h3 class="panel-title">{{exerciceTemplate.name}}</h3></div>
-				<div class="panel-body"></div>
+				<div class="panel-body">{{exerciceTemplate.panelBody}}</div>
 			</div>
 		</div>
 	</div>

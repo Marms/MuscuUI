@@ -82,12 +82,12 @@ angular.module('DashboardWM')
         	for (var indexExo =0; indexExo < s.exercices.length; indexExo++) {
         		var ajouter = true;
         		for (var i = 0; i < $scope.exos.length; i++) {
-        			console.log($scope.exos[i].name + " i.name");
         			if ($scope.exos[i].name === s.exercices[indexExo].exoPredef.name) {
         				ajouter = false;
         				// changement de la couleur du panel:
         				$scope.exos[i].done = EXO_DONE;
         				// TODO ajouter les series au panel
+        				$scope.exos[i].panelBody = $scope.createPanelBody(s.exercices[indexExo]);
         			}
         		}
         		if (ajouter) {
@@ -97,6 +97,14 @@ angular.module('DashboardWM')
         	}
         }
         
+        $scope.createPanelBody = function (exo) {
+        	var body = "";
+        	for (var i = 0; i < exo.series.length; i++) {
+        		body += exo.series[i].nbRepeat + "*" + exo.series[i].poids + ";\n";
+        	}
+        	return body;
+        }
+        
         /* modifie actualExo
          * - si exo non present dans les exercices de la seance en cours initialisation nouveau exo
          * - sinon recuperation de l object correspondant
@@ -104,7 +112,6 @@ angular.module('DashboardWM')
         $scope.choixExo = function(exo) {
         	$scope.numero = 0;
         	if (exo.done === EXO_DONE) {
-        		console.log("choix exo: maj exercice");
         		$scope.actualExo = $scope.seance.exercices.filter(function(data) {
         			return data.exoPredef.id == exo.id;
         		})[0];
@@ -116,7 +123,6 @@ angular.module('DashboardWM')
 								//        			}
 								//        		}
         	} else {
-        		console.log("choix exo: creation d un exercice");
         		$scope.actualExo = {};        		
         		$scope.actualExo.series = [];
         		$scope.actualExo.exoPredef = exo; //set exotemplate
@@ -139,7 +145,6 @@ angular.module('DashboardWM')
 
         // ajout de la serie a la liste de series de l'exercice actuel
         $scope.addSerie = function() {
-        	console.log("addSerie " + $scope.serie);
         	$scope.serie.numero = $scope.numero;
         	$scope.numero++;
         	$scope.actualExo.series.push($scope.serie);
