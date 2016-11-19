@@ -21,21 +21,41 @@
 			<h2>Liste des exercices predefinie</h2>
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-lg"
-				ng-click="changeView(1)">Creer un exercice</button>
+				ng-click="changeView(1)">Creer un exoTemplate</button>
 	
 	
 		</div>
 		<!-- fin creation exo template  -->
 	</div>
 	<div class="row">
+		<div class="col-sm-3">
+			<h4>Type exo visible</h4>
+			<div class="table-responsive max-heigth">
+				<table class="table table-bordered table-hover">
+					<tbody class="max-heigth">
+						<tr ng-repeat="t in exoShown" ng-click="hideExo(t)">
+							<td>{{t}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-sm-3 ">
+			<h4>Type exo cache</h4>
+			<div class="table-responsive max-heigth">
+				<table class="table table-bordered table-hover">
+					<tbody>
+						<tr ng-repeat="t in exoHidden">
+							<td ng-click="showExo(t)">{{t}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-lg-12">
 			<h2>List</h2>
-			<select ng-model="exoTemplate.type" multiple >
-				<option ng-repeat="t in exoShown" value="{{t}}" selected ng-click="hideExo(t)">{{t}}</option>
-			</select>
-			<select ng-model="exoTemplate.type" multiple >
-				<option ng-repeat="t in exoHidden" value="{{t}}" selected ng-click="showExo(t)">{{t}}</option>
-			</select>
 			<div class="table-responsive">
 				<table class="table table-bordered table-hover">
 					<thead>

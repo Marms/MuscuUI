@@ -128,7 +128,34 @@
 <div id="exoPredef" ng-if="actualView === listView[5]">
 	<h3>Ajouter un exo non present dans le template de seance</h3>
 	<div class="row">
-		<div class="col-lg-3" ng-repeat="exerciceTemplate in exoPredefs" ng-click="choixOtherExo(exerciceTemplate)">
+		<div class="col-sm-3">
+			<h4>Type exo visible</h4>
+			<div class="table-responsive max-heigth">
+				<table class="table table-bordered table-hover">
+					<tbody class="max-heigth">
+						<tr ng-repeat="t in exoShown" ng-click="hideExo(t)">
+							<td>{{t}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-sm-3 ">
+			<h4>Type exo cache</h4>
+			<div class="table-responsive max-heigth">
+				<table class="table table-bordered table-hover">
+					<tbody>
+						<tr ng-repeat="t in exoHidden">
+							<td ng-click="showExo(t)">{{t}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+	<h4>Selectionner un exercice:</h4>
+		<div class="col-lg-3" ng-repeat="exerciceTemplate in exoPredefs" ng-click="choixOtherExo(exerciceTemplate)" ng-if="showLine(exerciceTemplate)")>
 			<div id="exerciceTemplate-{{exerciceTemplate.id}}" class="panel panel-primary {{exerciceTemplate.done}}">
 				<div class="panel-heading"><h3 class="panel-title">{{exerciceTemplate.name}}</h3></div>
 				<div class="panel-body"></div>

@@ -33,4 +33,15 @@ var DashboardWM = angular.module(
 			});
 			$translateProvider.preferredLanguage('fr');
 
+		}).constant('ExoType', {
+			Type: [// ABDO, PECTORAUX, JAMBE, DOS, MOLLET, BRAS;
+			       {Id: 1, name: 'ABDO'},
+			       {Id: 2, name: 'PECTORAUX'},
+			       {Id: 3, name: 'JAMBE'},
+			       {Id: 4, name: 'DOS'},
+			       {Id: 5, name: 'MOLLET'},
+			       {Id: 6, name: 'BRAS'}
+			      
+			       ]
+			
 		});

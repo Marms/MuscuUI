@@ -18,7 +18,7 @@ angular.module('DashboardWM')
     	//affiche tout les exo
 		
     	$scope.initexoShown = function() {    		
-    		$scope.exoShown = ["ABDO", "PECTORAUX", "JAMBE", "DOS", "MOLLET", "BRAS", ""];
+    		$scope.exoShown = ["ABDO", "PECTORAUX", "JAMBE", "DOS", "MOLLET", "BRAS"];
     		$scope.exoHidden = [];
     	}
     	

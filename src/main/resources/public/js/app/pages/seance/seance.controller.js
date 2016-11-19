@@ -12,6 +12,12 @@ angular.module('DashboardWM')
     	];
     	var EXO_DONE = "panel-red";
    
+     	$scope.initexoShown = function() {    		
+    		$scope.exoShown = ["ABDO", "PECTORAUX", "JAMBE", "DOS", "MOLLET", "BRAS"];
+    		$scope.exoHidden = [];
+    	}
+    	$scope.initexoShown();
+
     	$scope.changeView = function(index) {
     		console.log("view " + listView[index]);
     		$scope.actualView = listView[index];
@@ -152,7 +158,34 @@ angular.module('DashboardWM')
         	$scope.initSerie();
         };
 
-        
+    	$scope.hideExo = function(id) {
+    		var index = $scope.exoShown.indexOf(id);
+    		if (index >= 0) {
+    			$scope.exoShown.splice(index, 1);
+    			$scope.exoHidden.push(id);
+    		}
+    		console.log("exoShown " + $scope.exoShown);
+    	}
+    	$scope.showExo = function(exo) {
+    		var index = $scope.exoHidden.indexOf(exo);
+    		if (index >= 0) {
+    			$scope.exoHidden.splice(index,1);
+    		}
+    		$scope.exoShown.push(exo);
+    	}
+    	/** renvoi vrai si le type exo est egale au exo a voir*/
+    	$scope.showLine = function(e) {
+    		if (e.type.length == 0) {
+    			// cas des exo n'ayant pas de type definie
+    			return true;
+    		}
+    		for (var i =0; i < e.type.length ; i++) {
+    			if ($scope.exoShown.indexOf(e.type[i]) >= 0) {
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
     });
 
 
