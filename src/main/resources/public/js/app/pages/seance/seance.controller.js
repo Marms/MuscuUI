@@ -82,7 +82,6 @@ angular.module('DashboardWM')
         $scope.affichageExo = function(s) {
         	$scope.exos = s.seancePredef.list;
         	// ajout des exercices supplementaires + modification css
-        	
         	console.log("in exo " + $scope.exos);
         	
         	for (var indexExo =0; indexExo < s.exercices.length; indexExo++) {
@@ -110,12 +109,27 @@ angular.module('DashboardWM')
         	}
         	return body;
         }
-        
+        /** Renvoi la liste des series/date effectue sur l'exercice */
+    	$scope.getOldSeries = function(exo) {
+    		//parcourir les anciennes seances et recuperer les Exercices:
+    		$scope.oldExoSeries = [];
+    		for (var i = 0; i < $scope.seances.length; i++) {
+    			var oldExo = $scope.seances[i].exercices.filter(function(exercice) {
+    				return exercice.exoPredef.name == exo.name;
+				});
+//    			oldExo.datte = "a" + $scope.seances[i].date;
+    			console.log("exdate2 " + oldExo.date);
+    			$scope.oldExoSeries = $scope.oldExoSeries.concat(oldExo);
+    		};
+    		// 
+    		
+    	};
         /* modifie actualExo
          * - si exo non present dans les exercices de la seance en cours initialisation nouveau exo
          * - sinon recuperation de l object correspondant
          * */
         $scope.choixExo = function(exo) {
+        	$scope.getOldSeries(exo);
         	$scope.numero = 0;
         	if (exo.done === EXO_DONE) {
         		$scope.actualExo = $scope.seance.exercices.filter(function(data) {
@@ -132,6 +146,8 @@ angular.module('DashboardWM')
         		$scope.actualExo = {};        		
         		$scope.actualExo.series = [];
         		$scope.actualExo.exoPredef = exo; //set exotemplate
+        		$scope.actualExo.date = new Date();
+        		console.log("date exo " + $scope.actualExo.date);
         		$scope.seance.exercices.push($scope.actualExo);
         	}
         	$scope.initSerie();
@@ -185,7 +201,16 @@ angular.module('DashboardWM')
     			}
     		}
     		return false;
-    	}
+    	};
+    	
+    	$scope.open = function($event) {
+             $event.preventDefault();
+             $event.stopPropagation();
+
+             $scope.obj = {
+                  opened : true
+             };
+       };
     });
 
 
