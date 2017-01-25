@@ -1,0 +1,93 @@
+
+<!-- Page Heading -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">
+			Serie <small>Subheading</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+			</li>
+			<li class="active"><i class="fa fa-file"></i>Serie</li>
+		</ol>
+	</div>
+</div>
+<!-- /.row -->
+	<h3>{{actualExo.exoPredef.name}}</h3>
+	<div id="addSerie">
+		<form role="form" ng-submit="addSerie()">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="form-group">
+						<label>numero</label>
+						<input type="text" readonly class="form-control"/>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="form-group">
+						<label>repetition</label>
+						<input type="number" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							ng-model="serie.nbRepeat" />
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="form-group">
+						<label>poids</label>
+						<input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							class="form-control" ng-model="serie.poids">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">OK</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+		
+	<div id="listSeries" ng-if="gridSeries.data.length > 0"" >
+		<div class="table-responsive row">
+			<div class ="col-lg-6">
+				<table class="table table-bordered table-hover ">
+		    		<thead><th>Poids</th><th>Nb</th></thead>
+		    		<tbody>
+		    			<tr ng-repeat="serie in actualExo.series">
+		    				<td>{{serie.poids}}</td>
+		    				<td>{{serie.nbRepeat}}</td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+    		</div>
+    	</div>
+			
+		<div class="row">
+			<div class="col-lg-1">
+				<button type="button" class="btn btn-info" ng-click="changeView(2)">Save</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+			<div class="col-lg-12">
+			<div id="affichageAncienResultat"class="table-responsive" >
+				<table class="table table-bordered table-hover">
+					<tbody>
+						<tr ng-repeat="oldExo in oldExoSeries">
+							<td>{{oldExo.date | date : 'dd/MM/yyyy'}}</td>
+							<td ng-repeat="serie in oldExo.series">{{serie.nbRepeat}} * {{serie.poids}} KG</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
