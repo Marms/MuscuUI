@@ -1,26 +1,32 @@
 'use strict';
 
 angular.module('DashboardWM')
-    .controller('SerieController', function ($scope, $rootScope, $stateParams) {
-    	var exoId = $scope.id = $stateParams.exoId;
+    .controller('SerieController', function ($scope, $rootScope, $stateParams,$location, serieService) {
+    	var exoId = $scope.id = $stateParams.exId;
     	var scId = $scope.scId = $stateParams.scId;
 
-    	$scope.exo = $rootScope.actualExo;
+    	$scope.actualExo = $rootScope.actualExo;
 
+    	$scope.gridSeries = {
+        		data: 'actualExo.series'
+        }
     	$scope.initSerie = function() {
         	console.log("initSerie");
         	$scope.serie = {};
         	$scope.serie.nbRepeat = 10;
         }
+    	$scope.initSerie();
 
         // ajout de la serie a la liste de series de l'exercice actuel
         $scope.addSerie = function() {
-        	$scope.serie.numero = $scope.numero;
-        	$scope.numero++;
-        	$scope.actualExo.series.push($scope.serie);
         	// mise a zero du formulaire
+        	serieService.save(scId, exoId, $scope.serie);
+        	$scope.actualExo.series.push($scope.serie);
         	$scope.initSerie();
         };
+        
+        $scope.saveSerie = function() {
+        }
 
         /** Renvoi la liste des series/date effectue sur l'exercice */
     	$scope.getOldSeries = function(exo) {
@@ -34,14 +40,20 @@ angular.module('DashboardWM')
     			console.log("exdate2 " + oldExo.date);
     			$scope.oldExoSeries = $scope.oldExoSeries.concat(oldExo);
     		};
-    		// 
-    		
+    		//
     	};
+    	
+    	$scope.exerciceFinish = function() {
+    		console.log("fin exo");
+    		$rootScope.actualExo = {};
+    		$location.path("seance/" + scId + "/exercice");
+    	}
+
     });
 angular.module('DashboardWM').service('serieService', function($http) {
 	// Makes the REST request to get the data to populate the grid.
-	this.save = function(seance) {
-		return $http.post('/v1/seance/s/exercice/e/serie', seance);
+	this.save = function(scId, exId, serie) {
+		return $http.post('/v1/seance/'+scId+ '/exercice/'+ exId +'/serie', serie);
 	}
 
 	this.getList = function() {
