@@ -220,6 +220,9 @@ angular.module('DashboardWM').service('seanceService', function($http) {
 		return $http.post('/v1/seance', seance);
 	}
 
+	this.getSeance = function(scId) {
+		return $http.get('/v1/seance/'+ scId);
+	}
 	this.getList = function() {
 		return $http.get('/v1/seance/list');
 	}

@@ -8,14 +8,14 @@
 		<ol class="breadcrumb">
 			<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
 			</li>
-			<li class="active"><i class="fa fa-file"></i> Blank Page</li>
+			<li class="active"><i class="fa fa-file"></i>Exercice</li>
 		</ol>
 	</div>
 </div>
 <!-- /.row -->
 
 
-<div id="listeExoTemplate">		
+<div id="listeExoTemplate" ng-if="showListExoTemplate == false">		
 	<div class="row">
 		<button type="button" class="btn btn-red" ng-click="changeView(1)">Annuler</button>
 	</div>
@@ -43,10 +43,51 @@
 		</div>
 	</div>
 	<div class="row">
-<!-- 		<button type="button" class="btn btn-primary" ng-click="saveSeance()">Save seance</button> -->
-<!-- 		<button type="button" class="btn btn-success" ng-click="changeView(5)">Ajouter une exercice</button> -->
+		<button type="button" class="btn btn-success" ng-click="changeView()">Ajouter un exercice</button>
 		</div>
 	<!-- End Liste des exercice template de la seance -->
+</div>
+
+<div id="exoPredef" ng-if="showListExoTemplate == true">
+	<h3>Ajouter un exo non present dans le template de seance</h3>
+	<div class="row">
+		<div class="col-sm-3">
+			<h4>Type exo visible</h4>
+			<div class="table-responsive max-heigth">
+				<table class="table table-bordered table-hover">
+					<tbody class="max-heigth">
+						<tr ng-repeat="t in exoShown" ng-click="hideExo(t)">
+							<td>{{t}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-sm-3 ">
+			<h4>Type exo cache</h4>
+			<div class="table-responsive max-heigth">
+				<table class="table table-bordered table-hover">
+					<tbody>
+						<tr ng-repeat="t in exoHidden">
+							<td ng-click="showExo(t)">{{t}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+	<h4>Selectionner un exercice:</h4>
+		<div class="col-lg-3" ng-repeat="exerciceTemplate in exoPredefs" ng-click="choixExo(exerciceTemplate)" ng-if="showLine(exerciceTemplate)")>
+			<div id="exerciceTemplate-{{exerciceTemplate.id}}" class="panel panel-primary {{exerciceTemplate.done}}">
+				<div class="panel-heading"><h3 class="panel-title">{{exerciceTemplate.name}}</h3></div>
+				<div class="panel-body"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<button type="button" class="btn btn-cancel btn-lg" ng-click="changeView()" >Annuler</button>
+	</div>
 </div>
 
 <!-- jQuery -->

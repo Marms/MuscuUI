@@ -17,25 +17,7 @@ angular.module('DashboardWM')
                 },
                  resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-                        $translatePartialLoader.addPart('Exercice');
-                        return $translate.refresh();
-                    }]
-                } 
-            }).state('exerciceDetail', {
-                parent: 'pages',
-                url: '/seance/:scId/exercice/:exoId',
-                data: {
-                    roles: []
-                },
-                views: {
-                    'content@': {
-                        templateUrl: 'js/app/pages/exercice/exercice.html',
-                        controller: 'ExerciceController'
-                    }
-                },
-                 resolve: {
-                    mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-                        $translatePartialLoader.addPart('Exercice');
+                        $translatePartialLoader.addPart('exercice');
                         return $translate.refresh();
                     }]
                 } 
