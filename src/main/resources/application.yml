@@ -4,4 +4,4 @@ zuul:
   routes:
     resource:
       path: /v1/**
-      url: http://localhost:9000/v1/
+      url: http://localhost:9009/v1/

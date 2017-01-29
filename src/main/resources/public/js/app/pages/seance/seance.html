@@ -1,15 +1,16 @@
 <!-- Page Heading -->
 <style>
-  .full button span {
-    background-color: limegreen;
-    border-radius: 32px;
-    color: black;
-  }
-  .partially button span {
-    background-color: orange;
-    border-radius: 32px;
-    color: black;
-  }
+.full button span {
+	background-color: limegreen;
+	border-radius: 32px;
+	color: black;
+}
+
+.partially button span {
+	background-color: orange;
+	border-radius: 32px;
+	color: black;
+}
 </style>
 <div class="row">
 	<div class="col-lg-12">
@@ -30,39 +31,43 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<!--  END row -->
-		<button type="button" class="btn btn-info btn-lg" ng-click="changeView(1)">Creer une seance</button>
-					<div class="table-responsive" >
-						<table class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>id</th>
-									<th>date</th>
-									<th>name</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="s in seances" ng-click="updateSeance(s)">
-									<td>{{s.id}}</td>
-									<td>{{s.date | date : 'dd/MM/yyyy HH:mm:ss'}}</td>
-									<td>{{s.seancePredef.name}}</td>
-								</tr>
-							</tbody>
-						</table>						
-					</div>
-<!-- 					<div class="gridStyle" ui-grid="gridSeances"></div> -->
+			<button type="button" class="btn btn-info btn-lg"
+				ng-click="changeView(1)">Creer une seance</button>
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>date</th>
+							<th>name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="s in seances" ng-click="updateSeance(s)">
+							<td>{{s.id}}</td>
+							<td>{{s.date | date : 'dd/MM/yyyy HH:mm:ss'}}</td>
+							<td>{{s.seancePredef.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- 					<div class="gridStyle" ui-grid="gridSeances"></div> -->
 		</div>
 	</div>
 </div>
 
 <div id="selectionnerSeancePredef" ng-if="actualView === listView[1]">
-<h2>Nouvelle seance</h2>
+	<h2>Nouvelle seance</h2>
 	<!-- Liste des seanceTemplates -->
 	<h3>Selectionner le template de seance</h3>
 	<div class="row">
-		<div ng-repeat="seance in seanceTemplates" class="col-lg-3" ng-click="choixSeance(seance)">
+		<div ng-repeat="seance in seanceTemplates" class="col-lg-3"
+			ng-click="choixSeance(seance)">
 			<div id="seance-{{seance.id}}" class="panel panel-primary">
-				<div class="panel-heading"> <h3 class="panel-title">{{seance.id}}</h3></div>
-				<div class="panel-body" > {{seance.name}}</div>			
+				<div class="panel-heading">
+					<h3 class="panel-title">{{seance.id}}</h3>
+				</div>
+				<div class="panel-body">{{seance.name}}</div>
 			</div>
 		</div>
 	</div>
@@ -74,156 +79,21 @@
 	<!-- Fin Liste des seanceTemplates -->
 </div>
 
-<div id="listeExoTemplate" ng-if="actualView === listView[2]">		
-	<div class="row">
-		<button type="button" class="btn btn-red" ng-click="changeView(1)">Annuler</button>
-	</div>
-	<h3>Date de la seance</h3>
-      <div class="row">
-     	<div class="col-sm-3">
-	        <p class="input-group">
-				<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="seance.date" 
-				is-open="obj.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-		          <span class="input-group-btn">
-	            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-	          </span>
-	        </p>
-	      </div>
-      </div>
-      
-	<h3>Exercices de la seance:</h3>
-	<!-- Liste des exercice template de la seance -->
-	<div class="row">
-		<div ng-repeat="exerciceTemplate in exos" class="col-lg-3" ng-click="choixExo(exerciceTemplate)">
-			<div id="exerciceTemplate-{{exerciceTemplate}}" class="panel panel-primary {{exerciceTemplate.done}}">
-				<div class="panel-heading"><h3 class="panel-title">{{exerciceTemplate.name}}</h3></div>
-				<div class="panel-body">{{exerciceTemplate.panelBody}}</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<button type="button" class="btn btn-primary" ng-click="saveSeance()">Save seance</button>
-		<button type="button" class="btn btn-success" ng-click="changeView(5)">Ajouter une exercice</button>
-		</div>
-	<!-- End Liste des exercice template de la seance -->
-</div>
-
 <div id="exo" ng-if="actualView === listView[4]">
-	<h3>{{actualExo.exoPredef.name}}</h3>
-	<div id="addSerie">
-		<form role="form" ng-submit="addSerie()">
-			<div class="row">
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label>numero</label>
-						<input type="text" readonly class="form-control"/>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label>repetition</label>
-						<input type="number" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
-							ng-model="serie.nbRepeat" />
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label>poids</label>
-						<input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
-							class="form-control" ng-model="serie.poids">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-3">
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary">OK</button>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-		
-	<div id="listSeries" ng-if="gridSeries.data.length > 0"" >
-		<div class="table-responsive row">
-			<div class ="col-lg-6">
-				<table class="table table-bordered table-hover ">
-		    		<thead><th>Poids</th><th>Nb</th></thead>
-		    		<tbody>
-		    			<tr ng-repeat="serie in actualExo.series">
-		    				<td>{{serie.poids}}</td>
-		    				<td>{{serie.nbRepeat}}</td>
-		    			</tr>
-		    		</tbody>
-		    	</table>
-    		</div>
-    	</div>
-			
-		<div class="row">
-			<div class="col-lg-1">
-				<button type="button" class="btn btn-info" ng-click="changeView(2)">Save</button>
-			</div>
-		</div>
-	</div>
-
 	<div class="row">
-			<div class="col-lg-12">
-			<div id="affichageAncienResultat"class="table-responsive" >
+		<div class="col-lg-12">
+			<div id="affichageAncienResultat" class="table-responsive">
 				<table class="table table-bordered table-hover">
 					<tbody>
 						<tr ng-repeat="oldExo in oldExoSeries">
 							<td>{{oldExo.date | date : 'dd/MM/yyyy'}}</td>
-							<td ng-repeat="serie in oldExo.series">{{serie.nbRepeat}} * {{serie.poids}} KG</td>
+							<td ng-repeat="serie in oldExo.series">{{serie.nbRepeat}} *
+								{{serie.poids}} KG</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
-	
-
-<div id="exoPredef" ng-if="actualView === listView[5]">
-	<h3>Ajouter un exo non present dans le template de seance</h3>
-	<div class="row">
-		<div class="col-sm-3">
-			<h4>Type exo visible</h4>
-			<div class="table-responsive max-heigth">
-				<table class="table table-bordered table-hover">
-					<tbody class="max-heigth">
-						<tr ng-repeat="t in exoShown" ng-click="hideExo(t)">
-							<td>{{t}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="col-sm-3 ">
-			<h4>Type exo cache</h4>
-			<div class="table-responsive max-heigth">
-				<table class="table table-bordered table-hover">
-					<tbody>
-						<tr ng-repeat="t in exoHidden">
-							<td ng-click="showExo(t)">{{t}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-	<h4>Selectionner un exercice:</h4>
-		<div class="col-lg-3" ng-repeat="exerciceTemplate in exoPredefs" ng-click="choixOtherExo(exerciceTemplate)" ng-if="showLine(exerciceTemplate)")>
-			<div id="exerciceTemplate-{{exerciceTemplate.id}}" class="panel panel-primary {{exerciceTemplate.done}}">
-				<div class="panel-heading"><h3 class="panel-title">{{exerciceTemplate.name}}</h3></div>
-				<div class="panel-body"></div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<button type="button" class="btn btn-cancel btn-lg" ng-click="changeView(2)" >Annuler</button>
-	</div>
-</div>
-
-
