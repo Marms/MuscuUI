@@ -52,9 +52,11 @@
 		<div class="table-responsive row">
 			<div class ="col-lg-6">
 				<table class="table table-bordered table-hover ">
-		    		<thead><th>Poids</th><th>Nb</th></thead>
+		    		<thead><th></th><th>Poids</th><th>Nb</th></thead>
 		    		<tbody>
-		    			<tr ng-repeat="serie in actualExo.series">
+		    			<tr ng-repeat="serie in actualExo.series"
+		    			data-toggle="modal" data-target="#myModal" ng-click="open(serie)">
+		    				<td>{{serie.numero}}</td>
 		    				<td>{{serie.poids}}</td>
 		    				<td>{{serie.nbRepeat}}</td>
 		    			</tr>
@@ -84,6 +86,67 @@
 			</div>
 		</div>
 	</div>
+
+<!-- Modal -->
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        	<h4 class="modal-title" id="confirmDeleteLabel">Supprimer la serie</h4>
+   			</div>
+			<div class="modal-body">
+				<p>Confirmer la suppression de la ligne {{userie.numero}}</p>
+		    </div>
+		    <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+        		<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteSerie()">delete</button>
+       		</div>
+			
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modifier la serie</h4>
+      </div>
+      <div class="modal-body">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="form-group">
+						<label>numero</label>
+						<input type="text" readonly class="form-control" ng-model="userie.numero"/>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="form-group">
+						<label>repetition</label>
+						<input type="number" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							ng-model="userie.nbRepeat" />
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="form-group">
+						<label>poids</label>
+						<input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							class="form-control" ng-model="userie.poids">
+					</div>
+				</div>
+			</div>
+	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#confirmDelete" data-dismiss="modal">Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="update()" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
