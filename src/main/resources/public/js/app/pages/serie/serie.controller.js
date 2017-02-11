@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('DashboardWM')
-    .controller('SerieController', function ($scope, $rootScope, $stateParams,$location, serieService) {
+    .controller('SerieController', function ($scope, $rootScope, $stateParams,$location, serieService, exerciceService) {
     	var exoId = $scope.id = $stateParams.exId;
     	var scId = $scope.scId = $stateParams.scId;
 
@@ -32,21 +32,26 @@ angular.module('DashboardWM')
         $scope.saveSerie = function() {
         }
 
+        
+        
         /** Renvoi la liste des series/date effectue sur l'exercice */
-    	$scope.getOldSeries = function(exo) {
+    	$scope.getOldSeries = function() {
     		//parcourir les anciennes seances et recuperer les Exercices:
     		$scope.oldExoSeries = [];
-    		for (var i = 0; i < $scope.seances.length; i++) {
-    			var oldExo = $scope.seances[i].exercices.filter(function(exercice) {
-    				return exercice.exoPredef.name == exo.name;
-				});
-//    			oldExo.datte = "a" + $scope.seances[i].date;
-    			console.log("exdate2 " + oldExo.date);
-    			$scope.oldExoSeries = $scope.oldExoSeries.concat(oldExo);
-    		};
+    		exerciceService.getOldExercice($scope.actualExo.exoPredef.id).success(function(data) {
+    			$scope.oldExoSeries = data;
+    		});
+//    		for (var i = 0; i < $scope.seances.length; i++) {
+//    			var oldExo = $scope.seances[i].exercices.filter(function(exercice) {
+//    				return exercice.exoPredef.name == exo.name;
+//				});
+////    			oldExo.datte = "a" + $scope.seances[i].date;
+//    			console.log("exdate2 " + oldExo.date);
+//    			$scope.oldExoSeries = $scope.oldExoSeries.concat(oldExo);
+//    		};
     		//
     	};
-    	
+    	$scope.getOldSeries();
     	$scope.exerciceFinish = function() {
     		console.log("fin exo");
     		$rootScope.actualExo = {};
