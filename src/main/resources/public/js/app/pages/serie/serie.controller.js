@@ -13,6 +13,7 @@ angular.module('DashboardWM')
     	$scope.initSerie = function() {
         	console.log("initSerie");
         	$scope.serie = {};
+        	$scope.serie.unilateral = '';
         	$scope.serie.nbRepeat = 10;
         }
     	$scope.initSerie();
@@ -41,16 +42,19 @@ angular.module('DashboardWM')
     		exerciceService.getOldExercice($scope.actualExo.exoPredef.id).success(function(data) {
     			$scope.oldExoSeries = data;
     		});
-//    		for (var i = 0; i < $scope.seances.length; i++) {
-//    			var oldExo = $scope.seances[i].exercices.filter(function(exercice) {
-//    				return exercice.exoPredef.name == exo.name;
-//				});
-////    			oldExo.datte = "a" + $scope.seances[i].date;
-//    			console.log("exdate2 " + oldExo.date);
-//    			$scope.oldExoSeries = $scope.oldExoSeries.concat(oldExo);
-//    		};
-    		//
     	};
+    	
+    	$scope.changeUnilateral = function() {
+    		var uni = $scope.serie.unilateral;
+    		if (uni == '' || null == uni) {
+    			$scope.serie.unilateral = 'D';
+    		} else if (uni == 'D') {
+    			$scope.serie.unilateral = 'G'
+    		} else {
+    			$scope.serie.unilateral = '';
+    		}
+    	};
+
     	$scope.getOldSeries();
     	$scope.exerciceFinish = function() {
     		console.log("fin exo");
