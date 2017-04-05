@@ -45,13 +45,6 @@ angular.module('DashboardWM')
         	$location.path("/seance/"+s.id + "/exercice");
         }
         
-        $scope.createPanelBody = function (exo) {
-        	var body = "";
-        	for (var i = 0; i < exo.series.length; i++) {
-        		body += exo.series[i].nbRepeat + "*" + exo.series[i].poids + ";\n";
-        	}
-        	return body;
-        }
         /** Renvoi la liste des series/date effectue sur l'exercice */
     	$scope.getOldSeries = function(exo) {
     		//parcourir les anciennes seances et recuperer les Exercices:
@@ -68,14 +61,6 @@ angular.module('DashboardWM')
     		
     	};
     	
-//    	$scope.open = function($event) {
-//             $event.preventDefault();
-//             $event.stopPropagation();
-//
-//             $scope.obj = {
-//                  opened : true
-//             };
-//       };
     });
 
 

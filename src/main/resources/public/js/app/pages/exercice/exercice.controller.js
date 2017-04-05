@@ -43,24 +43,33 @@ angular.module('DashboardWM')
         
         //ajoute les exercice de la seance a la liste affichageExo:
         $scope.affichageExo = function(s) {
+        	//ajout de tous les template a la liste des exo
         	$scope.exos = s.seancePredef.list;
-        	// ajout des exercices supplementaires + modification css
-        	console.log("in exo " + $scope.exos);
-        	
+        	// ajout des exercices supplementaires + modification css        	
         	for (var indexExo =0; indexExo < s.exercices.length; indexExo++) {
         		var ajouter = true;
+        		//verification si l'exo fait parti des template
         		for (var i = 0; i < $scope.exos.length; i++) {
         			if ($scope.exos[i].name === s.exercices[indexExo].exoPredef.name) {
         				ajouter = false;
         				// changement de la couleur du panel:
-        				$scope.exos[i].done = EXO_DONE;
         				// TODO ajouter les series au panel
-        				$scope.exos[i].panelBody = $scope.createPanelBody(s.exercices[indexExo]);
+        				var te =  $scope.createPanelBody(s.exercices[indexExo]);
+        				if (te != '') {
+        					$scope.exos[i].done = EXO_DONE;
+        				}
+        				$scope.exos[i].panelBody = te;
+
         			}
         		}
+        		// exo non present dans la liste des templates:
         		if (ajouter) {
+        			var te = $scope.createPanelBody(s.exercices[indexExo]);
+        			if (te != '') {        				
+        				s.exercices[indexExo].exoPredef.done = EXO_DONE;
+        			}
+        			s.exercices[indexExo].exoPredef.panelBody = te;
         			$scope.exos.push(s.exercices[indexExo].exoPredef);
-        			//s.exercices[indexExo].done = EXO_DONE;
         		}
         	}
         }
