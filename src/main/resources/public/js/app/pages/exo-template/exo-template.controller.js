@@ -10,15 +10,16 @@ angular.module('DashboardWM')
     	var typeExo = $scope.typeExo = [           
 	    	{id:"0", value : "ABDO"},
 			{id:"1", value : "PECTORAUX"},
-			{id:"2", value : "JAMBE"},
+			{id:"2", value : "JAMBES"},
 			{id:"3", value : "DOS"},
 			{id:"4", value : "MOLLET"},
-			{id : "5", value : "BRAS"}
+			{id : "5", value : "BRAS"},
+			{id : "6", value : "EPAULES"}
 		];
     	//affiche tout les exo
 		
     	$scope.initexoShown = function() {    		
-    		$scope.exoShown = ["ABDO", "PECTORAUX", "JAMBE", "DOS", "MOLLET", "BRAS"];
+    		$scope.exoShown = ["ABDO", "PECTORAUX", "JAMBES", "DOS", "MOLLET", "BRAS", "EPAULES"];
     		$scope.exoHidden = [];
     	}
     	

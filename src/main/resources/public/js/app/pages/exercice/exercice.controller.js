@@ -85,7 +85,7 @@ angular.module('DashboardWM')
         };
     	// gestion filtre exoPredef
      	$scope.initexoShown = function() {    		
-    		$scope.exoShown = ["ABDO", "PECTORAUX", "JAMBE", "DOS", "MOLLET", "BRAS"];
+    		$scope.exoShown = ["ABDO", "PECTORAUX", "JAMBES", "DOS", "MOLLET", "BRAS", "EPAULES"];
     		$scope.exoHidden = [];
     	}
     	$scope.initexoShown();

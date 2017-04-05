@@ -1,0 +1,77 @@
+<div id="addSerie">
+
+		<div id="selectionExoType">
+			<div ng-click="changeTypeExo('TRACTIONS')">TRACTIONS</div><div ng-click="changeTypeExo('PDC')">PDC</div>
+			<div ng-click="changeTypeExo('TIME')">TIME</div><div ng-click="changeTypeExo('NORMAL')">NORMAL</div>
+		</div>
+		<form role="form" ng-submit="save()">
+			<div class="row">
+				<div ng-if="showDiv(2)" class="col-lg-3">
+					<div class="form-group">
+						<label>repetition</label>
+						<input type="number" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							ng-model="serie.nbRepeat" />
+					</div>
+				</div>
+				<div ng-if="showDiv(3)" class="col-lg-3">
+					<div class="form-group">
+						<label>poids</label>
+						<input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							class="form-control" ng-model="serie.poids">
+					</div>
+				</div>
+				<div ng-if="showDiv(4)" class="col-lg-3">
+					<div class="for-group">
+						<label>unilateral</label>
+						<input type="text" readonly class="form-control" ng-model="serie.unilateral" ng-click="changeUnilateral()"/>
+					</div>
+				</div>
+				<div ng-if="showDiv(5)" class="col-lg-3">
+					<div class="form-group">
+						<label>nbMinute</label>
+						<input type="number" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							ng-model="serie.minute" />
+					</div>
+				</div>
+				<div ng-if="showDiv(6)" class="col-lg-3">
+					<div class="form-group">
+						<label>nbSeconde</label>
+						<input type="number" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							ng-model="serie.seconde" />
+					</div>
+				</div>
+				<div ng-if="showDiv(7)" class="col-lg-3">
+					<div class="form-group">
+						<label>leste</label>
+						<input type="number" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
+							ng-model="serie.leste" />
+					</div>
+				</div>
+				<div ng-if="showDiv(8)" class="col-lg-3">
+					<div class="form-group">
+						<label>negative</label>
+						<input type="text" readonly class="form-control" ng-model="serie.neg" ng-click="changeUnilateral()"/>
+					</div>
+				</div>
+				<div ng-if="showDiv(9)" class="col-lg-3">
+					<div class="form-group">
+						<label>force</label>
+						<input type="text" readonly class="form-control" ng-model="serie.force" ng-click="changeUnilateral()"/>
+					</div>
+				</div>
+				<div ng-if="showDiv(10)" class="col-lg-3">
+					<div class="form-group">
+						<label>comment</label>
+							<input type="text" class="form-control" ng-model="serie.comment"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">OK</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>

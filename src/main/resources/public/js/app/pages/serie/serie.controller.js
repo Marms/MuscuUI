@@ -11,16 +11,24 @@ angular.module('DashboardWM')
         		data: 'actualExo.series'
         }
     	$scope.initSerie = function() {
-        	console.log("initSerie");
         	$scope.serie = {};
         	$scope.serie.unilateral = '';
         	$scope.serie.nbRepeat = 10;
+        	$scope.serie.leste = '';
+        	$scope.serie.nbRepeat = '';
+        	$scope.serie.poids = '';
+        	$scope.serie.force = '';
+        	$scope.serie.neg = '';
+        	$scope.serie.nbSeconde = '';
+        	$scope.serie.minute = '';
+        	$scope.serie.comment = '';
         }
     	$scope.initSerie();
 
         // ajout de la serie a la liste de series de l'exercice actuel
         $scope.addSerie = function() {
         	// mise a zero du formulaire
+        	console.log('teste addSerie');
         	serieService.save(scId, exoId, $scope.serie).success(function(data) {
         		$scope.serie=data;
         		console.log("numero " + data.numero);
