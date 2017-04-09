@@ -6,12 +6,22 @@ angular.module('DashboardWM')
     	var scId = $scope.scId = $stateParams.scId;
 
     	$scope.actualExo = $rootScope.actualExo;
-
+    	
+    	$scope.loadExo = function() {
+    		
+    		console.log("load exo");
+    		exerciceService.getExercice(scId, exoId).then(function(data) {
+    			$rootScope.actualExo = $scope.actualExo = data;
+    		});
+    		console.log($scope.actualExo.name + "name");
+    	};
+    	
     	$scope.gridSeries = {
         		data: 'actualExo.series'
         }
     	$scope.initSerie = function() {
         	$scope.serie = {};
+        	$scope.serie.type = 'NORMAL';
         	$scope.serie.unilateral = '';
         	$scope.serie.nbRepeat = 10;
         	$scope.serie.leste = '';
@@ -62,8 +72,7 @@ angular.module('DashboardWM')
     			$scope.serie.unilateral = '';
     		}
     	};
-
-    	$scope.getOldSeries();
+ 
     	$scope.exerciceFinish = function() {
     		console.log("fin exo");
     		$rootScope.actualExo = {};
@@ -91,6 +100,10 @@ angular.module('DashboardWM')
     		  $scope.showModal = false;
 		};
 
+		if (!$scope.actualExo) {
+    		$scope.loadExo();
+    	};
+    	$scope.getOldSeries();
     });
 angular.module('DashboardWM').service('serieService', function($http) {
 	// Makes the REST request to get the data to populate the grid.

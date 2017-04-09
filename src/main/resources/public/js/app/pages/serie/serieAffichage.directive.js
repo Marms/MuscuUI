@@ -29,10 +29,10 @@ angular.module('DashboardWM')
  				text += ' + ' + $scope.s.leste + ' KG';
  			}
  			if ($scope.s.neg != '' && $scope.s.neg != null) {
- 				text += ' negative ';
+ 				text += ' neg ';
  			}
- 			if ($scope.s.force != '' && $scope.s.force != null) {
- 				text += ' force';
+ 			if ($scope.s.forcer != '' && $scope.s.forcer != null) {
+ 				text += ' force ';
  			}
 			$scope.t = text;
 		},

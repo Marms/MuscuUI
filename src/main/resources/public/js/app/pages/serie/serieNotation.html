@@ -50,13 +50,13 @@
 				<div ng-if="showDiv(8)" class="col-lg-3">
 					<div class="form-group">
 						<label>negative</label>
-						<input type="text" readonly class="form-control" ng-model="serie.neg" ng-click="changeUnilateral()"/>
+						<input type="text" readonly class="form-control" ng-model="serie.neg" ng-click="change('N', serie)"/>
 					</div>
 				</div>
 				<div ng-if="showDiv(9)" class="col-lg-3">
 					<div class="form-group">
 						<label>force</label>
-						<input type="text" readonly class="form-control" ng-model="serie.force" ng-click="changeUnilateral()"/>
+						<input type="text" readonly class="form-control" ng-model="serie.forcer" ng-click="change('F', serie)"/>
 					</div>
 				</div>
 				<div ng-if="showDiv(10)" class="col-lg-3">
@@ -66,6 +66,7 @@
 					</div>
 				</div>
 			</div>
+			<div ng-if="!affichageModal">
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="form-group">
@@ -73,5 +74,14 @@
 					</div>
 				</div>
 			</div>
+			</div>
 		</form>
+	<div ng-if="affichageModal">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#confirmDelete" data-dismiss="modal">Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="update()" data-dismiss="modal">Save changes</button>
+      </div>
+	
 	</div>
+</div>

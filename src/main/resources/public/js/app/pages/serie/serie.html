@@ -15,7 +15,7 @@
 <!-- /.row -->
 	<h3>{{actualExo.exoPredef.name}}</h3>
 
-	<saisie-serie data-serie="serie" add-serie="addSerie()" change-unilateral="changeUnilateral()"></saisie-serie>
+	<saisie-serie data-serie="serie" add-serie="addSerie()" update='update()' affichage-modal='false' change-unilateral="changeUnilateral()"></saisie-serie>
 
 	<div id="listSeries" ng-if="gridSeries.data.length > 0"" >
 		<div class="table-responsive row">
@@ -85,35 +85,7 @@
       </div>
       <div class="modal-body">
 			<div class="row">
-<!-- 				<saisie-serie data-serie="userie" add-serie="addSerie()" change-unilateral="changeUnilateral()"></saisie-serie> -->
-			
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label>numero</label>
-						<input type="text" readonly class="form-control" ng-model="userie.numero"/>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label>repetition</label>
-						<input type="number" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
-							ng-model="userie.nbRepeat" />
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label>poids</label>
-						<input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.5" 
-							class="form-control" ng-model="userie.poids">
-					</div>
-				</div>
-			</div>
-	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#confirmDelete" data-dismiss="modal">Delete</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="update()" data-dismiss="modal">Save changes</button>
+				<saisie-serie data-serie="userie" add-serie="addSerie()" update='update()' affichage-modal='true' change-unilateral="changeUnilateral()"></saisie-serie>
       </div>
     </div>
   </div>
