@@ -25,7 +25,6 @@ angular.module('DashboardWM')
     	
     	$scope.initexoShown();
     	$scope.changeView = function(index) {
-    		$scope.exoTemplate = {};
     		console.log("change view " + listView[index]);
     		$scope.actualView = listView[index];
     	}
@@ -70,6 +69,7 @@ angular.module('DashboardWM')
 			exoPredefService.saveExoPredef($scope.exoTemplate).success(function(data){
 				$scope.getList();
 				$scope.changeView(0);
+				$scope.exoTemplate = {};
 			});
 	    }
   	   
