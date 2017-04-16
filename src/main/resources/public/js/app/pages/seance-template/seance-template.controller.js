@@ -78,15 +78,6 @@ angular.module('DashboardWM').controller('SeanceTemplateController', function($s
 	$scope.getList();
 	$scope.getExo();
 
-	$scope.gridSeanceTemplates = {
-	   	   data: 'seanceTemplates'
-	//   	   enableRowSelection: true
-	};
-
-	$scope.gridSeanceTemplates.columnDefs = [
-		{ name: 'id', width: 50},
-		{ name: 'name'}
-	];
 });
 
 angular.module('DashboardWM').service('seancePredefService', function($http) {

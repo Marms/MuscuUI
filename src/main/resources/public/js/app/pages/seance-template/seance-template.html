@@ -27,7 +27,19 @@
 
 	<div class="col-lg-12">
 		<h2>Seance template List</h2>
-		<div class="gridStyle" ui-grid="gridSeanceTemplates" ui-grid-selection></div>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<th>Id</th><th>name</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="e in seanceTemplates">
+						<td>{{e.id}}</td>
+						<td>{{e.name}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<!-- Fin liste exoPredef -->
 </div>
