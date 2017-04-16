@@ -81,7 +81,7 @@ angular.module('DashboardWM')
   	   $scope.gridExoTemplates = {
   	   	   data: 'exoTemplates'
        };
-  	   
+  	 $scope.exoTemplate = {};
     });
  
 angular.module('DashboardWM').service('exoPredefService', function ($http) {
