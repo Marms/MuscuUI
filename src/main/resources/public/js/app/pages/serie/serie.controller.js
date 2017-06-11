@@ -8,12 +8,11 @@ angular.module('DashboardWM')
     	$scope.actualExo = $rootScope.actualExo;
     	
     	$scope.loadExo = function() {
-    		
     		console.log("load exo");
-    		exerciceService.getExercice(scId, exoId).then(function(data) {
+    		exerciceService.getExercice(scId, exoId).success(function(data) {
     			$rootScope.actualExo = $scope.actualExo = data;
     		});
-    		console.log($scope.actualExo.name + "name");
+//    		console.log($scope.actualExo.name + "name");
     	};
     	
     	$scope.gridSeries = {
@@ -88,6 +87,7 @@ angular.module('DashboardWM')
 			//update d'une serie
 			serieService.update(scId, exoId, $scope.userie);
 			$scope.userie = {};
+			$scope.loadExo();
 		};
 
 		$scope.deleteSerie = function() {
