@@ -1,16 +1,23 @@
 'use strict';
 
 angular.module('DashboardWM')
-    .controller('SeanceController', function ($scope, $location, seanceService, seancePredefService, exoPredefService) {
+    .controller('SeanceController', function ($scope, $location, seanceService, seancePredefService, exoPredefService, ParseLinks) {
     	var listView = $scope.listView  = [
     	    "LISTE_SEANCE",
     		"LISTE_SEANCE_PREDEF"
     	];
-    	
+        $scope.page = 1;
+
     	$scope.changeView = function(index) {
     		console.log("view " + listView[index]);
     		$scope.actualView = listView[index];
     	}
+
+        $scope.loadPage = function(page) {
+            $scope.page = page;
+            $scope.getSeances(page);
+        };
+
 
     	$scope.changeView(0);
 
@@ -22,9 +29,11 @@ angular.module('DashboardWM')
         }
         $scope.getSeanceTemplates();
         
-        $scope.getSeances = function() {
-        	seanceService.getList().success(function(data) {
-        		$scope.seances = data;
+        $scope.getSeances = function(pageNumber) {
+        	seanceService.getList(pageNumber).success(function(data, headers) {
+        		$scope.seances = data.content;
+        		$scope.links = ParseLinks.parse(data);
+        		$scope.page = data.number;
         	});
         }
         $scope.getSeances();
@@ -70,9 +79,13 @@ angular.module('DashboardWM').service('seanceService', function($http) {
 		return $http.post('/v1/seance', seance);
 	}
 	this.getSeance = function(scId) {
+		
 		return $http.get('/v1/seance/'+ scId);
 	}
-	this.getList = function() {
-		return $http.get('/v1/seance/list');
-	}
+	this.getList = function(pageNumber) {
+		if (pageNumber == null) {
+			pageNumber = 1;
+		}
+		return $http.get('/v1/seance/list?page='+pageNumber);
+		}
 });

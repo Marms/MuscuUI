@@ -1,0 +1,8 @@
+<nav>
+    <ul class="MuscuUI-Pager">
+        <li ng-show="links['first']" ng-click="loadPage(1)"><a href="#">&lt;&lt;</a></li>
+        <li ng-show="links['prev']" ng-click="loadPage(links.precedent)"><a href="#">&lt;</a></li>
+        <li ng-show="links['next']" ng-click="loadPage(links.suivant)"><a href="#">&gt;</a></li>
+        <li ng-show="links['last']" ng-click="loadPage(links.last)"><a href="#">&gt;&gt;</a></li>
+    </ul>
+</nav>
