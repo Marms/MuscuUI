@@ -1,9 +1,15 @@
 'use strict';
 
 angular.module('DashboardWM')
-    .controller('SerieController', function ($scope, $rootScope, $stateParams,$location, serieService, exerciceService) {
+    .controller('SerieController', function ($scope, $rootScope, $stateParams,$location, serieService, exerciceService, ParseLinks) {
     	var exoId = $scope.id = $stateParams.exId;
     	var scId = $scope.scId = $stateParams.scId;
+
+    	$scope.page = 1;
+        $scope.loadPage = function(page) {
+            $scope.page = page;
+            $scope.getOldSeries(page);
+        };
 
     	$scope.actualExo = $rootScope.actualExo;
     	
@@ -53,11 +59,13 @@ angular.module('DashboardWM')
         
         
         /** Renvoi la liste des series/date effectue sur l'exercice */
-    	$scope.getOldSeries = function() {
+    	$scope.getOldSeries = function(pageNumber) {
     		//parcourir les anciennes seances et recuperer les Exercices:
     		$scope.oldExoSeries = [];
-    		exerciceService.getOldExercice($scope.actualExo.exoPredef.id).success(function(data) {
-    			$scope.oldExoSeries = data;
+    		exerciceService.getOldExercice($scope.actualExo.exoPredef.id, pageNumber).success(function(data) {
+    			$scope.oldExoSeries = data.content;
+        		$scope.links = ParseLinks.parse(data);
+        		$scope.page = data.number;
     		});
     	};
     	
@@ -103,7 +111,7 @@ angular.module('DashboardWM')
 		if (!$scope.actualExo) {
     		$scope.loadExo();
     	};
-    	$scope.getOldSeries();
+    	$scope.getOldSeries(1);
     });
 angular.module('DashboardWM').service('serieService', function($http) {
 	// Makes the REST request to get the data to populate the grid.

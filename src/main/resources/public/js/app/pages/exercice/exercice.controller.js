@@ -139,7 +139,7 @@ angular.module('DashboardWM').service('exerciceService', function($http) {
 	this.getExercice = function(seanceId, exoId) {
 		return $http.get('/v1/seance/' + seanceId + '/exercice/' + exoId);
 	};
-	this.getOldExercice = function(exoId) {
-		return $http.get('/v1/exercice/' + exoId + '/list');
+	this.getOldExercice = function(exoId, pageNumber) {
+		return $http.get('/v1/exercice/' + exoId + '/list?page='+pageNumber);
 	}
 });

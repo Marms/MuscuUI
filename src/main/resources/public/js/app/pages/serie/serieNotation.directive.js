@@ -45,14 +45,18 @@ angular.module('DashboardWM')
 	    		}
 	    	}
 	        $scope.showDiv = function (num) {
-	        	if ($scope.serie.type === 'TRACTIONS') {
-	        		return $scope.isNumInArray(num, [1,2,3,7,8,9,10]);
-	        	}
-	        	if ($scope.serie.type === 'TIME') {
-	        		return $scope.isNumInArray(num, [1,4,5,6,7,10]);
-	        	}
-	        	if ($scope.serie.type === 'PDC') {
-	        		return $scope.isNumInArray(num, [1,2,7,8,9,10]);
+	        	if ($scope.serie != null) {
+		        	if ($scope.serie.type === 'TRACTIONS') {
+		        		return $scope.isNumInArray(num, [1,2,3,7,8,9,10]);
+		        	}
+		        	if ($scope.serie.type === 'TIME') {
+		        		return $scope.isNumInArray(num, [1,4,5,6,7,10]);
+		        	}
+		        	if ($scope.serie.type === 'PDC') {
+		        		return $scope.isNumInArray(num, [1,2,7,8,9,10]);
+		        	}
+	        	} else {
+	        		console.log("serie is null");
 	        	}
 	        	/* NORMAL  */
 	       		return $scope.isNumInArray(num, [1,2,3,4,10]);
