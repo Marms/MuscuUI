@@ -1,11 +1,17 @@
 'use strict';
 
 angular.module('DashboardWM')
-    .controller('ExerciceController',function ($scope, $rootScope, $stateParams, $location, seanceService, exerciceService, exoPredefService) {
-    	var showListExoTemplate = $scope.showListExoTemplate= false;
+    .controller('ExerciceController',function ($scope, $rootScope, $stateParams, $location, seanceService, exerciceService, exoPredefService, $timeout) {    	var showListExoTemplate = $scope.showListExoTemplate= false;
     
+	 $scope.open = function () {
+		  $timeout(function() {
+		    $scope.opened = true;  
+		  });
+
+	 };
+
     	// hide liste exo et show liste exoPredef
-    	
+    	  $scope.format = 'dd-MM-yyyy hh:mm:ss';
     	$scope.otherExoDone = function(exoTemplateId) {
     		$scope.changeView();
     		console.log("ok");
@@ -41,6 +47,11 @@ angular.module('DashboardWM')
         console.log(scId + " scId");
         $scope.getExos(scId);		
         
+        $scope.updateSeance = function() {
+        	seanceService.save($scope.seance).success(function (data) {
+        		console.log("seance updated")
+        	});
+        }
         //ajoute les exercice de la seance a la liste affichageExo:
         $scope.affichageExo = function(s) {
         	//ajout de tous les template a la liste des exo
