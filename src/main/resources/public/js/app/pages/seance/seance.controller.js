@@ -67,9 +67,7 @@ angular.module('DashboardWM')
     			$scope.oldExoSeries = $scope.oldExoSeries.concat(oldExo);
     		};
     		// 
-    		
     	};
-    	
     });
 
 

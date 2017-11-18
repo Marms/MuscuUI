@@ -23,12 +23,15 @@
       <div class="row">
      	<div class="col-sm-3">
 	        <p class="input-group">
-				<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="seance.date" 
-				is-open="obj.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+	            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="seance.date" 
+				is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
 		          <span class="input-group-btn">
 	            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 	          </span>
 	        </p>
+	      </div>
+	      <div class="col-sm-3">
+	      	<button type="button" class="btn btn-default" ng-click="updateSeance()">Save</button>
 	      </div>
       </div>
       
